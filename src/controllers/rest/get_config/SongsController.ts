@@ -4,13 +4,23 @@ import type { ProjectConfig, PlayerAudios } from 'typings';
 import { parseResourcePath } from 'src/config/project';
 
 function parseSongs(songs: ProjectConfig['songs']): PlayerAudios {
-  return songs.pieces.map((p) => ({
-    name: p.name,
-    artist: typeof p.artist === 'string' ? p.artist : p.artist.join(','),
-    url: parseResourcePath(p.url),
-    cover_art_url: p.cover === null ? null : parseResourcePath(p.cover),
-    lrc: p.lrc === null ? null : parseResourcePath(p.lrc)
-  }));
+  return songs.pieces.flatMap((p) => {
+    // invalid song pieces
+    if (p.url === null) {
+      return [];
+    }
+    // valid song pieces
+    return [
+      {
+        name: p.name,
+        artist: p.artist === null ? null : typeof p.artist === 'string' ? p.artist : p.artist.join(','),
+        album: p.album,
+        url: parseResourcePath(p.url),
+        cover_art_url: p.cover === null ? null : parseResourcePath(p.cover),
+        lrc: p.lrc === null ? null : parseResourcePath(p.lrc)
+      }
+    ];
+  });
 }
 
 @Controller('/songs')
