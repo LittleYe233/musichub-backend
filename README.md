@@ -112,6 +112,7 @@ Edit `.barreslby.json` to customize it:
   - [ ] Music API
     - [ ] NetEase Cloud Music
     - [ ] YouTube Music
+    - [ ] Spotify
 
 ## Branches
 
