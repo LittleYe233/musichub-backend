@@ -6,7 +6,7 @@ import { isProduction } from 'src/config/envs';
 const ctrlChildren = [SongsController].concat(isProduction ? [] : [ServerConfigController]);
 
 @Controller({
-  path: '/get-config',
+  path: '/config',
   children: ctrlChildren
 })
-export class GetConfigController {}
+export class ConfigController {}
